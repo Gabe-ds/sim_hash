@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1 class="my-3">今回，{{ img_1 }}と{{ img_2 }}のコサイン類似度を求めました．</h1>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <p class="text-center">-- {{ img_1 }} --</p>
+                <img class="img-fluid d-block mx-auto" src="/media/{{ img_1_path }}">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <p class="text-center">-- {{ img_2 }} --</p>
+                <img class="img-fluid d-block mx-auto" src="/media/{{ img_2_path }}">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p class="mt-3">類似度は，{{ result }}でした．</p>
+    </div>
+    <div class="row">
+        <p class="text-center"><a class="" href="/lec04/upload_list">戻る</a></p>
+    </div>
+</div>
+{% endblock content %}

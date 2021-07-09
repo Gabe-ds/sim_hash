@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-3">投稿した画像一覧</h1>
+    <div class="row">
+        <div class="col-md">
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">image</th>
+                        <th scope="col">path</th>
+                        <th scope="col">r</th>
+                        <th scope="col">g</th>
+                        <th scope="col">b</th>
+                        <th scope="col">upload_at</th>
+                        <th scope="col">/</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in object_list %}
+                    <tr>
+                        <th><a href="{% url 'lec05:detail' item.pk %}">{{ item.id }}</a></th>
+                        <th><img class="img-fluid" src='{{ item.image.url }}'></th>
+                        <th>{{ item.image }}</th>
+                        <th>{{ item.r }}</th>
+                        <th>{{ item.g }}</th>
+                        <th>{{ item.b }}</th>
+                        <th>{{ item.upload_at }}</th>
+                        <th class="align-middle"><a href="{% url 'lec04:delete' item.pk %}">削除</a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="row">
+                <h2>コサイン類似度を求めたい画像を2つ選択してください．</h2>
+            </div>
+            <div class="row">
+                <form class="" method="POST" action="">
+                    {% csrf_token %}
+                    {% for item in object_list %}
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="checks[]" id="inlineCheckbox{{ item.id }}" value="{{ item.id }}">
+                        <label class="form-check-label" for="inlineCheckbox{{ item.id }}">{{ item.id }}</label>
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit" onclick="check()">送信</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        // チェックボックスをチェックしたら発動
+        $('input[name="checks[]"]').change(function() {
+            // ①チェックが入ったチェックボックスの個数を変数に格納
+            var len = $('input[name="checks[]"]:checked').length;
+            // ②チェックが2つ以上入ったら
+            if (len >= 2) {
+                // ③disabledを付けてチェックできなくする
+                $('input[name="checks[]"]').not(':checked').attr('disabled', 'disabled');
+            // チェックが2つ未満だったら
+            }
+            else {
+                // ④disabledを削除してチェックできるようになる
+                $('input[name="checks[]"]').not(':checked').removeAttr('disabled');
+            }
+        });
+    });
+</script>
+{% endblock content %}

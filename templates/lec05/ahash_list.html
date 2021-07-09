@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-3">ahash化した画像一覧</h1>
+    <div class="row">
+        <div class="col-md">
+            <table class="table table-bordered border-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">image</th>
+                        <th scope="col">path</th>
+                        <th scope="col">ahash</th>
+                        <th scope="col">upload_at</th>
+                        <th scope="col">/</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in object_list %}
+                    <tr>
+                        <th>{{ item.id }}</th>
+                        <th><img class="img-fluid" src='{{ item.image.url }}'></th>
+                        <th>{{ item.image }}</th>
+                        <th>{{ item.ahash }}</th>
+                        <th>{{ item.upload_at }}</th>
+                        <th class="align-middle"><a href="{% url 'lec05:delete' item.pk %}">削除</a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="row">
+                <h2>画像の重複確認をしますか？</h2>
+            </div>
+            <div class="row">
+                <form class="" method="POST" name="ahash" action="">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit" name="check[]" onclick="check()">実行</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

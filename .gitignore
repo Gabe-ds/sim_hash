@@ -1,0 +1,10 @@
+# secret_key
+config/settings_secret.py
+
+# migrations file
+lec04/migrations
+lec05/migrations
+
+# image
+media/ahash_img/
+media/img/
